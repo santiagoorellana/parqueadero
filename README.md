@@ -2,7 +2,7 @@
 <h1>Aplicación web cliente</h1>
 La aplicación cliente está implementada mediante HTML, CSS y JavaScript.
 <h2>Conexión al servicio mediante API Restful y obtención de la respuesta como objeto JavaScript</h2>
-La aplicación se conecta al servicio mediante un EndPoint Restful, utilizando la función fetch() que es nativa de JavaScript, con la cual se envía una petición http GET al servicio y se obtiene la respuesta. El dato que se envía es el texto transcrito del dictado realizado por el usuario y se envía como parámetro de la URL. Por ejemplo, la pregunta “Está disponible la zona 3” es enviada al servicio como parámetro de URL de la siguiente forma:
+<p>La aplicación se conecta al servicio mediante un EndPoint Restful, utilizando la función fetch() que es nativa de JavaScript, con la cual se envía una petición http GET al servicio y se obtiene la respuesta. El dato que se envía es el texto transcrito del dictado realizado por el usuario y se envía como parámetro de la URL. Por ejemplo, la pregunta “Está disponible la zona 3” es enviada al servicio como parámetro de URL de la siguiente forma:</p>
 <code>GET /parkings/request?text=Est%C3%A1%20disponible%20la%20zona%203</code>
 La respuesta obtenida es un objeto de JavaScript (JSON) que contiene el texto de respuesta, que se debe sintetizar como voz humana y reproducir por el altavoz del móvil. El objeto de respuesta también contiene los datos de los parqueaderos disponibles, estructurados como un arreglo de objetos. En el siguiente ejemplo se pueden ver el texto devuelto por el servicio y el arreglo con los datos de los parqueaderos disponibles o localizados:
 <code>{
@@ -56,6 +56,7 @@ Cada vez que la aplicación necesita representar el estado de un parqueadero, bu
 Santiago Orellana <br>
 Email: <a href="mailto: tecnochago@gmail.com?Subject=Quiero%20un%20bot%20de%20trading"> tecnochago@gmail.com</a><br>
 Whatsapp: <a href="https://wa.me/5354635944?text=Quiero contratar tus servicios">+5354635944</a>
+
 
 
 
