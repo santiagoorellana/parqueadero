@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Parqueador</title>
+  </head>
+  <style>
+    .content{
+      background-color: rgb(66, 64, 64);
+      padding:5px;
+    }
+
+    .grabarBtn {
+      display:flex;
+      justify-content:center;
+      border-style: solid;
+      border-radius: 100px;
+      border-color: #9c9204;
+      background-color: #f5e71e;
+      color: black;
+      font-weight: bold;
+      font-size: 40px;
+      margin-top: 6px;
+    }
+
+    .zoneBtn {
+      display:inline-flex;
+      justify-content:center;
+      border-style: solid;
+      border-radius: 10px;
+      border-color: rgb(13, 9, 51);
+      background-color: #909394;
+      color: black;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 3px;
+      margin: 2px;
+    }
+
+    .response{
+      width: auto;
+      height: auto;
+      border-style: solid;
+      border-color: gray;
+      border-radius: 10px;
+      background-color: rgb(193, 243, 226);
+      color: black;
+      font-size: 25px;
+      padding: 3px;
+      visibility: hidden;
+    }
+
+  </style>
+  <body onload="onClickZone(2)">
+    <div class="content"  style="text-align: center;">
+      <canvas class="map" id="map" width="500px" height="530px" style="margin-top: 5px;"></canvas>
+      <div >
+        <div class="zoneBtn" id="zoneBtn1" name="zoneBtn" onclick="onClickZone(1)">Zona #1</div>
+        <div class="zoneBtn" id="zoneBtn2" name="zoneBtn" onclick="onClickZone(2)">Zona #2</div>
+        <div class="zoneBtn" id="zoneBtn3" name="zoneBtn" onclick="onClickZone(3)">Zona #3</div>
+        <div class="zoneBtn" id="zoneBtn4" name="zoneBtn" onclick="onClickZone(4)">Zona #4</div>
+      </div>
+      <div class="grabarBtn" >PARQUEO</div>
+		  <div class="response"></div>
+    </div>
+
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/pg.js/8.5.1/pg.min.js"></script-->
+	<script type="text/javascript" src="image_coordinates_zone_1.js" ></script>
+	<script type="text/javascript" src="image_coordinates_zone_2.js" ></script>
+	<script type="text/javascript" src="image_coordinates_zone_3.js" ></script>
+	<script type="text/javascript" src="image_coordinates_zone_4.js" ></script>
+	<script type="text/javascript" src="create_zone_map.js" ></script>
+    <script>
+      const btnGrabarTexto = document.querySelector('.grabarBtn');
+      const elementResponse = document.querySelector('.response');
+      const zoneBtn1 = document.getElementById('zoneBtn1');
+      const zoneBtn2 = document.getElementById('zoneBtn2');
+      const zoneBtn3 = document.getElementById('zoneBtn3');
+      const zoneBtn4 = document.getElementById('zoneBtn4');
+
+      var requestResponseList = [];
+
+      // Se crea el objeto para grabar y reconocer voz con el microfono.
+      const reconocimientoVoz = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const reconocimiento = new reconocimientoVoz();
+      reconocimiento.lang = "es";
+
+      // Se ejecuta al empezar a grabar el audio.
+      reconocimiento.onstart = ()=>{
+        btnGrabarTexto.innerHTML = 'Grabando'
+      }
+
+      // Al terminar la grabación, hace un pedido al servidor enviando el texto del audio.
+      reconocimiento.onresult = event =>{
+        let textFromSpeech = event.results[0][0].transcript;
+        btnGrabarTexto.innerHTML = "PARQUEO";
+
+        fetch("http://localhost:3000/parkings/request?text="+ textFromSpeech) 
+          .then(response => {
+            console.log(response);
+            if (response.ok)
+              return response.json()
+            else
+              throw new Error(response.status);
+          })
+          .then(data => {
+            console.log(data);
+            requestResponseList = data.data;
+            zoneBtn1.style.backgroundColor = '#909394';
+            zoneBtn2.style.backgroundColor = '#909394';
+            zoneBtn3.style.backgroundColor = '#909394';
+            zoneBtn4.style.backgroundColor = '#909394';
+            try {
+              if (requestResponseList != null){
+                requestResponseList.forEach(element => {
+                  if (element.hasOwnProperty('estado')){
+                    if (element.estado == 0){
+                      document.getElementById('zoneBtn'+element.id_zona).style.backgroundColor = '#2fca3c';
+                    }
+                  }else{
+                    document.getElementById('zoneBtn'+element.id_zona).style.backgroundColor = '#2fca3c';
+                  }
+                });
+                onClickZone(requestResponseList[0].id_zona);
+              }
+            } catch (error) {
+              //ignorar
+            }
+            speechThisText(data.text);
+          })
+          .catch(err => {
+            console.error("ERROR: ", err.message)
+          });          
+      }
+
+      // Lee en voz alta la respuesta del servidor.
+      function speechThisText(text){
+        elementResponse.innerHTML = text;
+        try {
+          const voz = new SpeechSynthesisUtterance()
+          voz.lang = 'es';
+          voz.text = text;
+          window.speechSynthesis.speak(voz);
+        } catch (error) {
+          console.log("Error sistentizando vos.")
+        }
+      }
+
+      // Le pone eun evento al boton de hacer pedido.
+      btnGrabarTexto.addEventListener('click', ()=>{
+          reconocimiento.start()
+      })
+
+      // Muestra el mapa de la zona especificada y señala los parqueaderos disponibles.
+      function onClickZone(zone){
+        zoneBtn1.style.borderColor = '#000000';
+        zoneBtn2.style.borderColor = '#000000';
+        zoneBtn3.style.borderColor = '#000000';
+        zoneBtn4.style.borderColor = '#000000';
+        document.getElementById('zoneBtn'+zone).style.borderColor = '#ccccff';
+        draw_map_of_zone(zone, requestResponseList);
+      }
+
+    </script>
+  </body>
+</html>

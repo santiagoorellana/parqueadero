@@ -1,0 +1,51 @@
+
+
+var zone3 = [
+	// A la izquierda de la imagen.
+	{'id_parqueadero':'0', 'x':197, 'y':323}, 
+	{'id_parqueadero':'1', 'x':197, 'y':375}, 
+	{'id_parqueadero':'2', 'x':197, 'y':427}, 
+	{'id_parqueadero':'3', 'x':197, 'y':479}, 
+	{'id_parqueadero':'4', 'x':197, 'y':533}, 
+	{'id_parqueadero':'5', 'x':197, 'y':587}, 
+	{'id_parqueadero':'6', 'x':197, 'y':641}, 
+	{'id_parqueadero':'7', 'x':197, 'y':695}, 
+	{'id_parqueadero':'8', 'x':197, 'y':747}, 
+	{'id_parqueadero':'9', 'x':197, 'y':801}, 
+	{'id_parqueadero':'10', 'x':197, 'y':853}, 
+	{'id_parqueadero':'11', 'x':197, 'y':907}, 
+	// A centro de la imagen, en la izquierda.
+	{'id_parqueadero':'12', 'x':419, 'y':323}, 
+	{'id_parqueadero':'13', 'x':419, 'y':370}, 
+	{'id_parqueadero':'14', 'x':419, 'y':420}, 
+	{'id_parqueadero':'15', 'x':419, 'y':472}, 
+	{'id_parqueadero':'16', 'x':419, 'y':525}, 
+	{'id_parqueadero':'17', 'x':419, 'y':575}, 
+	{'id_parqueadero':'18', 'x':419, 'y':621}, 
+	{'id_parqueadero':'19', 'x':419, 'y':675}, 
+	{'id_parqueadero':'20', 'x':419, 'y':727}, 
+	{'id_parqueadero':'21', 'x':419, 'y':780}, 
+	{'id_parqueadero':'22', 'x':419, 'y':833}, 
+	// A centro de la imagen, en la derecha.
+	{'id_parqueadero':'23', 'x':533, 'y':323}, 
+	{'id_parqueadero':'24', 'x':533, 'y':370}, 
+	{'id_parqueadero':'25', 'x':533, 'y':420}, 
+	{'id_parqueadero':'26', 'x':533, 'y':472}, 
+	{'id_parqueadero':'27', 'x':533, 'y':525}, 
+	{'id_parqueadero':'28', 'x':533, 'y':575}, 
+	{'id_parqueadero':'29', 'x':533, 'y':621}, 
+	{'id_parqueadero':'30', 'x':533, 'y':675}, 
+	{'id_parqueadero':'31', 'x':533, 'y':727}, 
+	{'id_parqueadero':'32', 'x':533, 'y':780}, 
+	{'id_parqueadero':'33', 'x':533, 'y':833}, 
+	// A la derecha de la imagen.
+	{'id_parqueadero':'34', 'x':759, 'y':493}, 
+	{'id_parqueadero':'35', 'x':759, 'y':555}, 
+	{'id_parqueadero':'36', 'x':759, 'y':610}, 
+	{'id_parqueadero':'37', 'x':759, 'y':668}, 
+	{'id_parqueadero':'38', 'x':759, 'y':725}, 
+	{'id_parqueadero':'39', 'x':759, 'y':790}, 
+	{'id_parqueadero':'40', 'x':759, 'y':843}, 
+	{'id_parqueadero':'41', 'x':759, 'y':907}, 
+]
+
