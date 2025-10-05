@@ -52,11 +52,12 @@ La aplicación cliente está implementada mediante HTML, CSS y JavaScript.
 
 
 <h1>Necesitas un código?</h1>
-<H3>Si necesitas hacer un bot de trading con tu propia estrategia, hacer backtesting, analisis de datos de mercados, o necesitas acesoramiento sobre bots de trading y automatización en exchanges de criptomonedas... escríbeme!</H3>
+<H3>Si necesitas hacer una aplicación similar a esta o tienes una idea mejor para probar... escríbeme!</H3>
 
 Santiago Orellana <br>
 Email: <a href="mailto: tecnochago@gmail.com?Subject=Quiero%20un%20bot%20de%20trading"> tecnochago@gmail.com</a><br>
 Whatsapp: <a href="https://wa.me/5354635944?text=Quiero contratar tus servicios">+5354635944</a>
+
 
 
 
