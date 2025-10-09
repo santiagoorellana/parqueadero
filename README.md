@@ -14,7 +14,7 @@ El sistema se diseñó dividido en tres partes:
 
 
 <p>Para la realización del servidor del sistema se decidió emplear Node JavaScript como lenguaje de programación y para el Procesamiento de Lenguaje Natural, se decidió utilizar la librería Natural que no es de pago (licencia MIT) y cuenta buena documentación online, lo cual facilita el proceso de desarrollo y acorta los tiempos. Para agregar la librería Natural a un proyecto Node, solo es necesario entrar mediante la consola de comando (en adelante CMD) al directorio del proyecto y teclear:</p>
-<code>npm install natural</code>
+<code>npm install natural</code><br>
 
 <p>La documentación de la librería puede encontrarse en: https://naturalnode.github.io/natural/ 
 Para la ejecución de la aplicación Cliente de prueba, se decidió utilizar el programa XAMPP que dispone de un servidor web bastante rápido y fácil de administrar y para ejecutar una web solo hay que ejecutar el XAMPP y colocar el fichero index.html del la web en el directorio: C:\xampp\htdocs <br>
@@ -72,14 +72,14 @@ Se decidió implementar un algoritmo de Clasificación Heurística, y la Distanc
 
 <p><b>1 - Abstracción de los Datos:</b> Se busca una representación de los datos con menos detalles, pero más significativa, que constituya un patrón identificativo de los datos. Para ello, se han creado los llamados Symbols (Utilizamos palabras en inglés para que no se confundan con las palabras en español que se emplean para interactuar con la aplicación). Cada Symbol es una abstracción de un conjunto de palabras o frases que tienen un significado o sentido común entre ellas. Al obtener una frase del usuario, se busca dentro de la frase las coincidencias con las palabras de cada Symbol y cada vez que se encuentre una palabra de un Symbol específico, se agrega el Symbol al conjunto de salida, de manera tal que al terminar se obtiene un conjunto de uno, varios o ningún Symbol para representar a la frase. Ese conjunto de Symbols es el patrón que representa a la frase del usuario. Para el algoritmo de clasificación que tratamos, se definieron los Symbols que se representan a continuación. Téngase en cuenta que las palabras se han representado sin tildes y algunas están intencionalmente truncadas, lo cual se realiza para facilitar el proceso de comparación. Por ejemplo, las frases “necesito un parqueadero”, “dame un estacionamiento” y “quiero estacionar el carro” generarán el mismo conjunto patrón de salida (will, parking) que se ha conformado utilizando los Symbols siguientes:</p>
 
-a.	status: Abstracción de las palabas disponible, disponibilidad, desocupado, libre, vacio, asequible, tomado, cogido, ocupado, tomado, utilizado, lleno, llena, espacio, free.
-b.	parking: Abstracción de parqueo, parqueadero, parquear, aparcar, aparcarse, parque, estacionamiento, estacionar, estacionarme, aparcamiento, aparcamento, aparcadero, lugar, lugares, parking.
-c.	zone: Abstracción de las zona, zonas, area, areas],
-d.	will: Abstracción que representa la voluntad, intensión o necesidad del usuario. Las palabras son necesito, quiero, puede, puedo, posible, dame.
-e.	reference: Abstracción que representa ubicación espacial o referenciación. Las palabras son donde, lugar, pertenece, esta, encuentr, encontre, ubico, ubica, indicame, indica, dime.
-f.	hello: Hola, Buenos dias, Buenas tardes, Buen dia
-g.	help: Representa palabras y fraces que denotan necesidad de ayuda u orientación. Abstrae las palabras Ayuda, Necesito ayuda, Que debo hacer, Que hago, Informacion, Info, Que haces, Ayudame, Menu.
-h.	number: Representa a cualquier número o representación numérica que se encuentre en el texto. 
+- status: Abstracción de las palabas disponible, disponibilidad, desocupado, libre, vacio, asequible, tomado, cogido, ocupado, tomado, utilizado, lleno, llena, espacio, free.
+- parking: Abstracción de parqueo, parqueadero, parquear, aparcar, aparcarse, parque, estacionamiento, estacionar, estacionarme, aparcamiento, aparcamento, aparcadero, lugar, lugares, parking.
+- zone: Abstracción de las zona, zonas, area, areas],
+- will: Abstracción que representa la voluntad, intensión o necesidad del usuario. Las palabras son necesito, quiero, puede, puedo, posible, dame.
+- reference: Abstracción que representa ubicación espacial o referenciación. Las palabras son donde, lugar, pertenece, esta, encuentr, encontre, ubico, ubica, indicame, indica, dime.
+- hello: Hola, Buenos dias, Buenas tardes, Buen dia
+- help: Representa palabras y fraces que denotan necesidad de ayuda u orientación. Abstrae las palabras Ayuda, Necesito ayuda, Que debo hacer, Que hago, Informacion, Info, Que haces, Ayudame, Menu.
+- number: Representa a cualquier número o representación numérica que se encuentre en el texto. 
 
 <p><b>2 - Asociación Heurística:</b> Se busca la mayor coincidencia entre el patrón abstraído y las posibles clases. Esta asociación es de naturaleza heurística y depende de conocimiento basado en la experiencia. Por ejemplo, para el conjunto patrón de salida (will, parking), el algoritmo determinará que pertenece a la clase: cm1 que significa que el usuario necesita un parqueo para su carro. </p>
 
@@ -167,6 +167,7 @@ La aplicación cliente está implementada mediante HTML, CSS y JavaScript.
 Santiago Orellana <br>
 Email: <a href="mailto: tecnochago@gmail.com?Subject=Quiero%20un%20bot%20de%20trading"> tecnochago@gmail.com</a><br>
 Whatsapp: <a href="https://wa.me/5354635944?text=Quiero contratar tus servicios">+5354635944</a>
+
 
 
 
