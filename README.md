@@ -2,7 +2,7 @@
 <h1>Arquitectura básica del sistema</h1>
 
 El sistema se diseñó dividido en tres partes: 
-<img width="680" height="419" alt="sistema" src="https://github.com/user-attachments/assets/7174f251-dadd-4bb3-b96d-415758219b5f" />
+<img width="480" alt="sistema" src="https://github.com/user-attachments/assets/7174f251-dadd-4bb3-b96d-415758219b5f" />
 
 <p><b>Base de datos:</b> Almacena los datos de los parqueaderos y su estado (ocupado/libre). Esta base de datos es actualizada por otra aplicación independiente o por usuarios de forma manual.</p>
 <p><b>Servicio:</b> Es un programa que se conecta directamente a la Base de Datos para obtener información sobre los parqueaderos. Implementa una API RESTFUL mediante la cual se le puede enviar textos (lenguaje natural en español) con preguntas sobre los parqueaderos y recibir la respuesta. Cuando recibe un texto, primero hace un Procesamiento de Lenguaje Natural (PNL) del texto para clasificar la pregunta y saber el tipo de respuesta que debe devolver. </p>
@@ -167,6 +167,7 @@ La aplicación cliente está implementada mediante HTML, CSS y JavaScript.
 Santiago Orellana <br>
 Email: <a href="mailto: tecnochago@gmail.com?Subject=Quiero%20un%20bot%20de%20trading"> tecnochago@gmail.com</a><br>
 Whatsapp: <a href="https://wa.me/5354635944?text=Quiero contratar tus servicios">+5354635944</a>
+
 
 
 
