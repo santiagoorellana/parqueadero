@@ -2,12 +2,17 @@
 <h1>Arquitectura básica del sistema</h1>
 
 El sistema se diseñó dividido en tres partes: 
+<img width="680" height="419" alt="sistema" src="https://github.com/user-attachments/assets/7174f251-dadd-4bb3-b96d-415758219b5f" />
+
 <p><b>Base de datos:</b> Almacena los datos de los parqueaderos y su estado (ocupado/libre). Esta base de datos es actualizada por otra aplicación independiente o por usuarios de forma manual.</p>
 <p><b>Servicio:</b> Es un programa que se conecta directamente a la Base de Datos para obtener información sobre los parqueaderos. Implementa una API RESTFUL mediante la cual se le puede enviar textos (lenguaje natural en español) con preguntas sobre los parqueaderos y recibir la respuesta. Cuando recibe un texto, primero hace un Procesamiento de Lenguaje Natural (PNL) del texto para clasificar la pregunta y saber el tipo de respuesta que debe devolver. </p>
 <p><b>Cliente:</b> Es una aplicación web para el navegador Chrome que captura el audio de la voz humana y lo convierten a texto para enviarlo al servicio. El texto de respuesta que recibe del servicio es sintetizado como voz humana y reproducida inmediatamente. Es el punto final desde donde el usuario puede interactuar con el sistema mediante comandos de voz flexibles para pedirle o preguntarle por parqueaderos. </p>
  
 
 <h1>Aplicación Servidor</h1>
+<img width="472" height="539" alt="servidor" src="https://github.com/user-attachments/assets/2ce35e31-c308-42ed-83ec-48976bdaebcf" />
+
+
 <p>Para la realización del servidor del sistema se decidió emplear Node JavaScript como lenguaje de programación y para el Procesamiento de Lenguaje Natural, se decidió utilizar la librería Natural que no es de pago (licencia MIT) y cuenta buena documentación online, lo cual facilita el proceso de desarrollo y acorta los tiempos. Para agregar la librería Natural a un proyecto Node, solo es necesario entrar mediante la consola de comando (en adelante CMD) al directorio del proyecto y teclear:</p>
 <code>npm install natural</code>
 
@@ -78,26 +83,34 @@ h.	number: Representa a cualquier número o representación numérica que se enc
 
 <p><b>2 - Asociación Heurística:</b> Se busca la mayor coincidencia entre el patrón abstraído y las posibles clases. Esta asociación es de naturaleza heurística y depende de conocimiento basado en la experiencia. Por ejemplo, para el conjunto patrón de salida (will, parking), el algoritmo determinará que pertenece a la clase: cm1 que significa que el usuario necesita un parqueo para su carro. </p>
 
-Implementación del Clasificador de Heurístico
-El Clasificador Heurístico está implementado en el Servicio que atiende las peticiones de las aplicaciones Cliente. El Servicio cuenta con un API RESTFUL conformado por un solo EndPoint (/parkings/request) que recibe el texto de las peticiones de los usuarios, que son enviadas desde la aplicación Cliente. Cada vez que se recibe el texto de una petición del usuario, se somete al siguiente algoritmo (expresado en pseudocódigo) que realiza la Abstracción de los Datos, para conformar el patron de Symbols que representan a la frase de petición:
- 
-Al final del algoritmo, se obtiene un patrón de Symbols (conjunto compuesto por uno o varios Symbols) que representa al texto de una petición del usuario. Los Symbols que componen un patrón, al ser un conjunto no tienen un orden de aparición definido, por lo que la información que aporta cada Symbol solo indica la presencia de la idea que representa en el texto. 
-Para realizar la Asociación Heurística de los patrones de Symbols resultantes, se utiliza el algoritmo siguiente, expresado en pseudocódigo:
- 
-El algoritmo devuelve un código (cm1, cm2, cm4, cm5, cm6, cm7, cm8 o cm9) que representa a una pregunta específica y solo queda buscar la respuesta en la base de datos y devolvérsela a la aplicación Cliente del usuario.
-Conformación de las respuestas del servidor
-Por cada código de pregunta específica obtenido mediante la Asociación Heurística, se hace un acceso a la base de datos donde está la información de la disponibilidad de los parqueaderos. La base de datos está implementada utilizando Postgres SQL. Los campos de dato de la tabla primaria de los parqueaderos se pueden ver a continuación:
- 
+<h2>Implementación del Clasificador de Heurístico</h2>
+<p>El Clasificador Heurístico está implementado en el Servicio que atiende las peticiones de las aplicaciones Cliente. El Servicio cuenta con un API RESTFUL conformado por un solo EndPoint (/parkings/request) que recibe el texto de las peticiones de los usuarios, que son enviadas desde la aplicación Cliente. Cada vez que se recibe el texto de una petición del usuario, se somete al siguiente algoritmo (expresado en pseudocódigo) que realiza la Abstracción de los Datos, para conformar el patron de Symbols que representan a la frase de petición:</p>
+<img width="494" height="267" alt="seudoAbstract" src="https://github.com/user-attachments/assets/6be385cf-d493-49ec-b697-d26c8c9aa933" />
 
-Las consultas sobre una tabla así son sencillas para cada tipo de petición de los usuarios:
  
-Las clases restantes que no se muestran, son peticiones que no requieren acceso a la base de dato y cuyas respuestas están pre elaboradas (Mensaje de saludo, Menú del servicio). 
-Al obtener los datos de respuesta de la Base de Datos, estos son insertados en textos pre elaborados y enviados a la aplicación Cliente. El texto es enviado como respuesta a la misma petición GET que se le realizó al servidor en el EndPoint (/parkings/request). 
+<p>Al final del algoritmo, se obtiene un patrón de Symbols (conjunto compuesto por uno o varios Symbols) que representa al texto de una petición del usuario. Los Symbols que componen un patrón, al ser un conjunto no tienen un orden de aparición definido, por lo que la información que aporta cada Symbol solo indica la presencia de la idea que representa en el texto. 
+Para realizar la Asociación Heurística de los patrones de Symbols resultantes, se utiliza el algoritmo siguiente, expresado en pseudocódigo:</p>
+<img width="756" height="314" alt="seudoHeuristico" src="https://github.com/user-attachments/assets/3d7ec0b5-528a-4739-a09c-e4d871094866" />
+
+ 
+<p>El algoritmo devuelve un código (cm1, cm2, cm4, cm5, cm6, cm7, cm8 o cm9) que representa a una pregunta específica y solo queda buscar la respuesta en la base de datos y devolvérsela a la aplicación Cliente del usuario.</p>
+
+<h2>Conformación de las respuestas del servidor</h2>
+<p>Por cada código de pregunta específica obtenido mediante la Asociación Heurística, se hace un acceso a la base de datos donde está la información de la disponibilidad de los parqueaderos. La base de datos está implementada utilizando Postgres SQL. Los campos de dato de la tabla primaria de los parqueaderos se pueden ver a continuación:</p>
+ <img width="403" height="358" alt="tabledb" src="https://github.com/user-attachments/assets/df449c4e-a500-4a3e-bc55-f42feba7953d" />
+
+<p>Las consultas sobre una tabla así son sencillas para cada tipo de petición de los usuarios:</p>
+ <img width="507" height="109" alt="querries" src="https://github.com/user-attachments/assets/9ae63553-d87e-4027-b1d4-b96e982ea85a" />
+
+<p>Las clases restantes que no se muestran, son peticiones que no requieren acceso a la base de dato y cuyas respuestas están pre elaboradas (Mensaje de saludo, Menú del servicio). </p>
+<p>Al obtener los datos de respuesta de la Base de Datos, estos son insertados en textos pre elaborados y enviados a la aplicación Cliente. El texto es enviado como respuesta a la misma petición GET que se le realizó al servidor en el EndPoint (/parkings/request). </p>
 
 
 
 <h1>Aplicación web cliente</h1>
 La aplicación cliente está implementada mediante HTML, CSS y JavaScript.
+<img width="491" height="544" alt="cliente" src="https://github.com/user-attachments/assets/789b024b-4fbc-42ec-ae77-f9a5f23d6d07" />
+
 <h2>Conexión al servicio mediante API Restful y obtención de la respuesta como objeto JavaScript</h2>
 <p>La aplicación se conecta al servicio mediante un EndPoint Restful, utilizando la función fetch() que es nativa de JavaScript, con la cual se envía una petición http GET al servicio y se obtiene la respuesta. El dato que se envía es el texto transcrito del dictado realizado por el usuario y se envía como parámetro de la URL. Por ejemplo, la pregunta “Está disponible la zona 3” es enviada al servicio como parámetro de URL de la siguiente forma:</p>
 <code>GET /parkings/request?text=Est%C3%A1%20disponible%20la%20zona%203</code>
@@ -154,6 +167,7 @@ La aplicación cliente está implementada mediante HTML, CSS y JavaScript.
 Santiago Orellana <br>
 Email: <a href="mailto: tecnochago@gmail.com?Subject=Quiero%20un%20bot%20de%20trading"> tecnochago@gmail.com</a><br>
 Whatsapp: <a href="https://wa.me/5354635944?text=Quiero contratar tus servicios">+5354635944</a>
+
 
 
 
